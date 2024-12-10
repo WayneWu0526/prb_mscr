@@ -29,5 +29,3 @@ m = np.array([m_norm, 0, 0])
 B_norm = 30e-2
 # 外部磁场向量
 B = B_norm * np.array([0, 0, 1])
-# 显示标志
-showflag = 1

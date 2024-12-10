@@ -1,5 +1,5 @@
 from .prb_model import PRBModel
-from .params import set_param_function
+from .set_param_function import set_param_function
 from .utils import skew, blkdiag
 from .energy_and_grad import prb_energy_and_grad
 
