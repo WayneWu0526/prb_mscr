@@ -5,8 +5,7 @@ from .energy_and_grad import prb_energy_and_grad
 
 __all__ = [
     "PRBModel",           # 主类
-    "set_param_function", # 参数初始化函数
+    "params.py",          # 配置文件
     "skew",               # 工具函数
     "blkdiag",
-    "prb_energy_and_grad" # 能量与梯度计算
 ]

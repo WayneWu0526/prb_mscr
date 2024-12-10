@@ -1,3 +1,4 @@
+from .config import DEFAULT_CONFIG
 from .forward import prb_forward
 from .update_ex import prb_update_ex
 from .update_gradient import prb_gradient_descent
@@ -16,13 +17,32 @@ class PRBModel:
         self.B = B
 
     @classmethod
-    def initialize(cls, L, E, r, nu, B_norm, L_rigid, Nm, N, m):
+    def initialize(cls, **kwargs):
         """
         初始化 PRBModel 的参数配置。
         """
-        pr = set_param_function(L, E, r, nu, B_norm, L_rigid, Nm, N, m)
-        B = B_norm * [0, 0, 1]
+        config = DEFAULT_CONFIG.copy()
+        config.update(kwargs)
+        
+        pr = set_param_function(
+            L=config["L"], 
+            E=config["E"], 
+            r=config["r"], 
+            nu=config["nu"], 
+            B_norm=config["B_norm"], 
+            L_rigid=config["L_rigid"], 
+            Nm=config["Nm"], 
+            N=config["N"], 
+            m=config["m"]
+        )
+        B = [0, 0, config["B_norm"]]
         return cls(pr, B)
+    
+    def update_magnetic_field(self, B):
+        """
+        更新磁场配置。
+        """
+        self.B = B
 
     def forward(self, q):
         """计算正向运动学"""
@@ -56,10 +76,10 @@ class PRBModel:
         """计算关于磁场b的空间雅可比矩阵"""
         return prb_space_jacobian_b(q, self.pr)
 
-    def update_ex(self, q0=None, method='gradient', **kwargs):
+    def update_ex(self, q0=None, method='minimize', **kwargs):
         """优化更新配置 q"""
         if method == 'gradient':
-            return prb_gradient_descent(self.pr, self.B, q0, **kwargs)
+            return prb_gradient_descent(self.pr, q0, **kwargs)
         elif method == 'minimize':
             return prb_update_ex(self.pr, self.B, q0)
         else:

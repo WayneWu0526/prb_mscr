@@ -36,7 +36,9 @@ def prb_forward(q, pr):
         R, p = TransToRp(T_)  # Decompose transformation into R and p
         quat = rotm2quat(R)   # Convert rotation matrix to quaternion
         Qp[:, i] = np.concatenate((quat, p))  # Combine quaternion and position
-
+        
+    T = T_
+    
     return T, Pose, Qp
 
 

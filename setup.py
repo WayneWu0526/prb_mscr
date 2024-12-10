@@ -8,7 +8,7 @@ setup(
     description="A pseudo-rigid-body model library for magnetically controlled soft robots.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
-    url="https://github.com/your_github_repo",  # 项目地址
+    url="https://github.com/WayneWu0526/prb_mscr.git",  # 项目地址
     packages=find_packages(),
     install_requires=[
         "numpy>=1.18.0",  # 依赖的包
